@@ -9,12 +9,12 @@ var pstart = [w/2-100, 400]; // start of parallel lines
 var step = 18; // distance between lines
 var pend = [pstart[0]+200, pstart[1]+160];
 
-var mind = {c: '#0000FF', c0: [190,134], c1: [w- 397,257], l: []};
-var leaf = {c: '#3AB649', c0: [108,193], c1: [w- 195,279], l: []};
+var mind = {c: '#0000FF', c0: [190,160], c1: [w- 397,257], l: []};
+var leaf = {c: '#3AB649', c0: [120,210], c1: [w- 230,279], l: []};
 var comp = {c: '#662D91', c0: [225,663], c1: [w- 355,505], l: []};
 var blob = {c: '#ED1C23', c0: [82,pstart[1] + step*3], c1: [w- 336,790], l: []};
-var meds = {c: '#F7931E', c0: [300,771], c1: [w- 110,404], l: []};
-var vrus = {c: '#FFFF02', c0: [111,801], c1: [w- 197,pend[1]+5*step], l: []};
+var meds = {c: '#F7931E', c0: [300,771], c1: [w- 200,404], l: []};
+var vrus = {c: '#FFFF02', c0: [111,801], c1: [w- 210,pend[1]+5*step], l: []};
 
 	var i = 0;
 logos = [leaf, mind, comp, blob, meds, vrus];
@@ -25,8 +25,8 @@ for (var l = 0; l < logos.length; l++) {
         logos[l].l.push([logos[l].c0[0]-140, pstart[1]+step*l]);
     }
     logos[l].l.push([logos[l].c0[0], pstart[1] + step * l]);
-    logos[l].l.push([pstart[0]-100, pstart[1] + step * l]);
-    logos[l].l.push([pstart[0]+100, pend[1] + step * l]);
+    logos[l].l.push([pstart[0], pstart[1] + step * l]);
+    logos[l].l.push([pend[0], pend[1] + step * l]);
     switch(l) {
         case 0:
             logos[l].l.push([pstart[0]+300, pend[1]]);
@@ -42,12 +42,8 @@ for (var l = 0; l < logos.length; l++) {
             logos[l].l.push([pstart[0]+410, logos[l].c1[1]]);
         break;
         case 3:
-            opp = 200;
-            adj = pend[1] - pstart[1];
-            theta = Math.atan(opp / adj);
             y = logos[l].c1[1];
-            x = pstart[0] + Math.tan(theta) * (y - pstart[1]+l*step);
-            logos[l].l.push([x, y]);
+            logos[l].l.push([pend[0]+210, y]);
         break;
         case 4:
             logos[l].l.push([pstart[0]+380, pend[1]+step*l]);
