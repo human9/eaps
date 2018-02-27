@@ -10,7 +10,7 @@ var step = 18; // distance between lines
 var pend = [pstart[0]+200, pstart[1]+160];
 
 var mind = {c: '#0000FF', c0: [190,160], c1: [w- 397,257], l: []};
-var leaf = {c: '#3AB649', c0: [120,210], c1: [w- 230,279], l: []};
+var leaf = {c: '#3AB649', c0: [120,210], c1: [w- 300,320], l: []};
 var comp = {c: '#662D91', c0: [225,663], c1: [w- 355,505], l: []};
 var blob = {c: '#ED1C23', c0: [82,pstart[1] + step*3], c1: [w- 336,790], l: []};
 var meds = {c: '#F7931E', c0: [300,771], c1: [w- 200,404], l: []};
@@ -30,8 +30,7 @@ for (var l = 0; l < logos.length; l++) {
     switch(l) {
         case 0:
             logos[l].l.push([pstart[0]+300, pend[1]]);
-            logos[l].l.push([pstart[0]+300, logos[l].c1[1]+60]);
-            logos[l].l.push([logos[l].c1[0]-60, logos[l].c1[1]+60]);
+            logos[l].l.push([pstart[0]+300, logos[l].c1[1]]);
         break;
         case 1:
             logos[l].l.push([pstart[0]+350, pend[1]+step*l]);
