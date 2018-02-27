@@ -1,9 +1,10 @@
 var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+svg.setAttribute('viewBox', '0,0,2000,2000');
 var svgNS = svg.namespaceURI;
-svg.setAttribute('id', 'bg');
+svg.setAttribute('id', 'svg');
 document.body.appendChild(svg);
 
-var w = Math.min(Math.max(1000, window.innerWidth), 2600);
+var w = 1900;
 var pstart = [w/2-100, 400]; // start of parallel lines
 var step = 18; // distance between lines
 var pend = [pstart[0]+200, pstart[1]+160];
@@ -41,7 +42,7 @@ for (var l = 0; l < logos.length; l++) {
             logos[l].l.push([pstart[0]+410, logos[l].c1[1]]);
         break;
         case 3:
-            opp = pend[0] - pstart[0];
+            opp = 200;
             adj = pend[1] - pstart[1];
             theta = Math.atan(opp / adj);
             y = logos[l].c1[1];

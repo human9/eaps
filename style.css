@@ -1,12 +1,6 @@
-#bg {
-  position: fixed;
+#svg {
+  position: relative;
   background-color:#000;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
 }
 
 .logo {
@@ -52,7 +46,7 @@
   stroke-dasharray: 3000;
   stroke-dashoffset: 3000;
   animation: dash 0.5s linear forwards;
-  animation-delay: 1.1s;
+  animation-delay: 1.3s;
   opacity: 0;
   transition: 0.3s;
 }
