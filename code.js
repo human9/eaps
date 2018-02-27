@@ -1,9 +1,9 @@
 var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 var svgNS = svg.namespaceURI;
-svg.setAttribute('class', 'bg');
+svg.setAttribute('id', 'bg');
 document.body.appendChild(svg);
 
-var w = Math.max(1000, window.innerWidth);
+var w = Math.min(Math.max(1000, window.innerWidth), 2600);
 var pstart = [w/2-100, 400]; // start of parallel lines
 var step = 18; // distance between lines
 var pend = [pstart[0]+200, pstart[1]+160];
@@ -15,6 +15,7 @@ var blob = {c: '#ED1C23', c0: [82,pstart[1] + step*3], c1: [w- 336,790], l: []};
 var meds = {c: '#F7931E', c0: [300,771], c1: [w- 110,404], l: []};
 var vrus = {c: '#FFFF02', c0: [111,801], c1: [w- 197,pend[1]+5*step], l: []};
 
+	var i = 0;
 logos = [leaf, mind, comp, blob, meds, vrus];
 for (var l = 0; l < logos.length; l++) {
     logos[l].l.push(logos[l].c0);
@@ -43,7 +44,6 @@ for (var l = 0; l < logos.length; l++) {
             opp = pend[0] - pstart[0];
             adj = pend[1] - pstart[1];
             theta = Math.atan(opp / adj);
-            console.log(theta)
             y = logos[l].c1[1];
             x = pstart[0] + Math.tan(theta) * (y - pstart[1]+l*step);
             logos[l].l.push([x, y]);
@@ -58,13 +58,49 @@ for (var l = 0; l < logos.length; l++) {
         break;
     }
     logos[l].l.push(logos[l].c1);
-    drawLogo(logos[l]);
+    drawLogo(logos[l], 'logo');
 }
 
-function drawLogo(o) {
-    drawLine(o.c, o.l);
-    drawCircle(o.c, 20, o.c0, 'node');
-    drawCircle(o.c, 40, o.c1, 'circle');
+
+function drawLogo(o, cl) {
+    var l = drawLine(o.c, o.l, cl)
+    var c0 = drawCircle(o.c, 20, o.c0, cl);
+    var c1 = drawCircle(o.c, 40, o.c1, cl+i);
+	i++;
+
+	function biggly() {
+		c0.setAttribute('r', 30);
+		c1.setAttribute('r', 60);
+		c0.setAttribute('fill', 'white');
+		c1.setAttribute('fill', 'white');
+		l.setAttribute('stroke-width', 9);
+	}
+	function smally() {
+		c0.setAttribute('r', 20);
+		c1.setAttribute('r', 50);
+		c0.setAttribute('fill', shade(o.c, 0.66));
+		c1.setAttribute('fill', shade(o.c, 0.66));
+		l.setAttribute('stroke-width', 5);
+	}
+    c0.addEventListener("mouseover", function(event){
+		biggly();
+	});
+    c0.addEventListener("mouseout", function(event){
+		smally();
+	});
+    c1.addEventListener("mouseover", function(event){
+		biggly();
+	});
+    c1.addEventListener("mouseout", function(event){
+		smally();
+	});
+    l.addEventListener("mouseover", function(event){
+		biggly();
+	});
+    l.addEventListener("mouseout", function(event){
+		smally();
+	});
+
 }
 
 function drawCircle(color, r, pos, cl)
@@ -78,17 +114,19 @@ function drawCircle(color, r, pos, cl)
     c.setAttribute('stroke', color);
     c.setAttribute('stroke-width', 5);
     svg.appendChild(c);
+	return c;
 }
 
-function drawLine(color, points)
+function drawLine(color, points, cl)
 {
     var l = document.createElementNS(svgNS, 'polyline');
-    l.setAttribute('class', 'line');
+    l.setAttribute('class', cl);
     l.setAttribute('points', points);
     l.setAttribute('stroke', color);
     l.setAttribute('fill', 'none');
     l.setAttribute('stroke-width', 5);
     svg.appendChild(l);
+	return l;
 }
 
 function shade(color, percent) {   
